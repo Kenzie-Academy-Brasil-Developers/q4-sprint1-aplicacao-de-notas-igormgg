@@ -8,7 +8,7 @@ app.use(express.json());
 const userDB = [];
 
 app.listen(3000, () =>
-  console.log("Aplicação rodando em http://localhost:3000")
+  console.log("Application running on http://localhost:3000")
 );
 
 /////////////////////////// MIDDLEWARES ///////////////////////////
