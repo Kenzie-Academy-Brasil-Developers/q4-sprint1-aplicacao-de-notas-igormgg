@@ -102,10 +102,9 @@ app.delete("/users/:cpf", checkUser, (req, res) => {
 app.post("/users/:cpf/notes", checkUser, (req, res) => {
   const data = req.body;
   const userCPF = req.params.cpf;
+  const date = new Date();
 
   const findUser = userDB.find((user) => user.cpf == userCPF);
-
-  const date = new Date();
 
   const noteSerializer = {
     id: uuidv4(),
@@ -133,6 +132,7 @@ app.patch("/users/:cpf/notes/:id", checkUser, checkNoteID, (req, res) => {
   const data = req.body;
   const userCPF = req.params.cpf;
   const noteID = req.params.id;
+  const date = new Date();
 
   const findUser = userDB.find((user) => user.cpf == userCPF);
 
@@ -145,6 +145,10 @@ app.patch("/users/:cpf/notes/:id", checkUser, checkNoteID, (req, res) => {
   if (data.content) {
     findNoteID.content = data.content;
   }
+
+  findNoteID[
+    "updated_at"
+  ] = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}T${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}Z`;
 
   res.status(200).json(findNoteID);
 });
